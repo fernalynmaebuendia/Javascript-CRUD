@@ -1,0 +1,133 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.alert {
+    display: none;
+}
+
+.container {
+    height: 150vh;
+    margin-bottom: 50px;
+}
+
+#Update {
+    display: none;
+}
+
+.row {
+    display: flex;
+}
+  
+.column {
+    flex: 50%;
+    margin-bottom: 50px;
+}
+
+#searchBar {
+    background-image: url('../../icon/search.svg');
+    background-position: 15px 17px; 
+    background-repeat: no-repeat; 
+    width: 100%; 
+    padding: 12px 20px 12px 40px; 
+    border: 1px solid #e4dada;
+}
+
+#message {
+    display: none;
+    width: 100%;
+    padding: 20px 0 20px 20px;
+    border: 1px solid #eee;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 15;
+}
+
+#searchResultCount {
+    display: none;
+}
+
+.pagination-button {
+    float: right;
+}
+
+#prevButton, #nextButton {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    color: #333;
+    border-radius: 4px;
+}
+
+#prevButton:hover {
+    color: black;
+    background-color: #b6b8b9;
+}
+
+#nextButton:hover {
+    color: black;
+    background-color: #b6b8b9;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+}
+
+.close {
+    color: #aaa;
+    align-self: end;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover, 
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768) {
+    .container {
+      width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #prevButton, 
+    #nextButton {
+        font-size: 13px;
+        padding: 4px 6px;
+    }
+
+    #paginationInfo {
+        font-size: 13px;
+    }
+
+    #paginationShowResult {
+        font-size: 13px;
+    }
+}

@@ -1,14 +1,17 @@
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Application</title>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="asset/css/style.css">
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Bootstrap SASS CSS -->
+    <link rel="stylesheet" href="asset/css/main.css">
+
+    <!-- Bootstrap Icon CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 </head>
 <body>
@@ -16,72 +19,192 @@
         <h2 class="mt-5 mb-5">CRUD Application With Local Storage</h2>
         <div class="mb-5">
             <div class="row">
-                <div class="form-group col-md-6 mb-3">
-                    <label for="name">Name</label>
-                    <input 
-                        type="text" 
-                        name="name" 
-                        class="form-control" 
-                        id="name" 
-                        placeholder="Enter Name">
-                </div> <!-- end form -->
-                <div class="form-group col-md-6 mb-3">
-                    <label for="age">Age</label>
-                    <input 
-                        type="number" 
-                        name="age" 
-                        class="form-control" 
-                        id="age" 
-                        placeholder="Enter Age">
-                </div> <!-- end form -->
-                <div class="form-group col-md-6 mb-3">
-                    <label for="addres">Address</label>
-                    <input 
-                        type="text" 
-                        name="address" 
-                        class="form-control" 
-                        id="address" 
-                        placeholder="Enter Address">
-                </div> <!-- end form -->
-                <div class="form-group col-md-6 mb-3">
-                    <label for="email">Email</label>
-                    <input 
-                        type="email" 
-                        name="email" 
-                        class="form-control" 
-                        id="email" 
-                        placeholder="Enter Email">
-                </div> <!-- end form -->
+                <!-- Form -->
+                <form class="row needs-validation" id="form" novalidate>
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input 
+                            type="text" 
+                            name="firstName" 
+                            class="form-control" 
+                            id="firstName" 
+                            placeholder="Enter First Name" required>
+                        <div class="error" id="firstNameErrorMsg"></div>
+                    </div>
 
-                <div class="col-lg-12 mt-5">
-                    <button class="btn btn-success" id="Submit" onclick="AddData()">
-                        Add Data
-                    </button>
-                    <button class="btn btn-primary" id="Update" onclick="AddData()">
-                        Update Data
-                    </button>
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input 
+                            type="text" 
+                            name="lastName" 
+                            class="form-control" 
+                            id="lastName" 
+                            placeholder="Enter Last Name" required>
+                        <div class="error" id="lastNameErrorMsg"></div>
+                    </div>
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="dob" class="form-label">Birthday</label>
+                        <input 
+                            type="date" 
+                            name="dob" 
+                            class="form-control" id="dob" 
+                            placeholder="Enter Date of Birth" required>
+                        <div class="error" id="dobErrorMsg"></div>
+                    </div> 
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="age" class="form-label">Age</label>
+                        <input 
+                            type="text" 
+                            name="age" 
+                            class="form-control" 
+                            id="age" 
+                            placeholder="Enter Age" disabled>
+                        <div class="error" id="ageErrorMsg"></div>
+                    </div>
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input 
+                            type="text" 
+                            name="address" 
+                            class="form-control" 
+                            id="address" 
+                            placeholder="Enter Address" required>
+                        <div class="error" id="addressErrorMsg"></div>
+                    </div>
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            class="form-control" 
+                            id="email" 
+                            placeholder="Enter Email" required>
+                        <div class="error" id="emailErrorMsg"></div>
+                    </div>
+                    
+                    <!-- Submit/Update button -->
+                    <div class="col-lg-12 mt-5">
+                        <button type="button" class="btn btn-success" id="Submit" onclick="AddUser()">
+                            Add User
+                        </button>
+                        <button type="button" class="btn btn-primary" id="Update" onclick="AddUser()">
+                            Update User
+                        </button>
+                    </div>
+                </form> <!-- End Form -->
+
+                <!-- Success alert -->
+                <div class="alert alert-success mt-3">
+                    <strong> Add New User Successfully!</strong>
                 </div>
-            </div> <!-- end row -->
+                <!-- Delete alert -->
+                <div class="alert alert-danger mt-3">
+                    <strong>Delete User Successfully!</strong>
+                </div>
+                <!-- Update alert -->
+                <div class="alert alert-info mt-3">
+                    <strong>Update User Successfully!</strong>
+                </div>
+            </div> <!-- End row -->
         </div>
+
         <hr>
         <div class="row mt-5">
-            <div class="col-12">
-                <table class="table table-bordered" id="crudTable">
+            <h3>List of Users</h3>
+            
+            <!-- Search bar -->
+            <div class="mt-3 mb-3">    
+                <input class="text" id="searchBar" onkeyup="SearchBar()" placeholder="Search for users...">
+            </div>
+
+            <!-- Show Entries -->
+            <div class="mt-3 mb-3">
+                <label for="showEntries">Show Entries:</label>
+                <select name="showEntries" id="showEntries" onclick="changeUsersPerPage()">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal header -->
+                        <div class="modal-header">
+                            <h5 class="modal-title">User Information</h5>
+                        </div>
+                        <br>
+                        <!-- Modal data -->
+                        <div id="modalData">
+                            <!-- Data from table will be displayed here -->
+                        </div> <!-- End of modal data -->
+                        <br>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" class="close" onclick="closeModal()">Close</button>
+                        </div> 
+                    </div> 
+                </div> 
+            </div> <!-- End of modal -->
+
+            <!-- Table -->
+            <div class="table-responsive col-12">
+                <table class="table table-sortable table-bordered table-hover" id="userTable">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Age</th>
-                            <th>Address</th>
-                            <th>Email</th>
-                            <th>Actions</th>
+                            <!-- Table headers -->
+                            <th onclick="sortTable(0)">First Name <i class="bi bi-sort-alpha-up bi-sort-alpha-down-alt sort-icon"></i></th>
+                            <th onclick="sortTable(1)">Last Name <i class="bi bi-sort-alpha-up bi-sort-alpha-down-alt sort-icon"></i></th>
+                            <th onclick="sortTable(2)">Birthday <i class="bi bi-sort-alpha-up bi-sort-alpha-down-alt sort-icon"></i></th>
+                            <th onclick="sortTable(3)">Age <i class="bi bi-sort-alpha-up bi-sort-alpha-down-alt sort-icon"></i></th>
+                            <th onclick="sortTable(4)">Address <i class="bi bi-sort-alpha-up bi-sort-alpha-down-alt sort-icon"></i></th>
+                            <th onclick="sortTable(5)">Email <i class="bi bi-sort-alpha-up bi-sort-alpha-down-alt sort-icon"></i></th>
+                            <th style="text-align: center;">Actions</i></th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <!-- Table data will be filled here by showData() -->
+                    <tbody id="userTableBody"></tbody>
                 </table>
-            </div>
-        </div>
-    </div> <!-- end container -->
 
-    <script src="script.js"></script>
+                <!-- No result message -->
+                <label for="message" id="message"></label>
+            </div>
+        </div> <!-- End row -->
+
+        <div class="row mt-3 mb-5">
+            <div class="column">
+                <!-- Pagination result -->
+                <div class="pagination-showresult">
+                    <span id="paginationShowResult"></span>
+                    <span id="paginationResultCount"></span>
+                </div>
+            </div>
+
+            <div class="column">
+                <!-- Pagination -->
+                <div id="pagination">
+                    <div class="pagination-button">
+                        <button id="prevButton" onclick="prevPage()">Previous</button>
+                        <span id="paginationInfo">Page 1 of 1</span>
+                        <button id="nextButton" onclick="nextPage()">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End row -->
+    </div> <!-- End container -->
+
+    <!-- Custom JS -->
+    <script src="asset/js/script.js"></script>
+
+    <!-- Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>
