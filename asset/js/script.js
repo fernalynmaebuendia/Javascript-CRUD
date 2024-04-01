@@ -1,3 +1,9 @@
+// To reload page and back to top of the page
+window.scrollTo({
+    top:0,
+    behavior: "smooth"
+})
+
 // Pagination prev and next current page
 let currentUserPage = 1;
 // Show entries users per page and 5 is default show entries 
@@ -238,18 +244,6 @@ document.getElementById("dob").addEventListener("change", function() {
     document.getElementById("age").value = age;
 });
 
-// function Age() {
-//     var ageDropdown = document.getElementById("age");
-
-//     // Create options for ages from 18 to 99
-//     for (var i = 1; i <= 99; i++) {
-//         var option = document.createElement("option");
-//         option.value = i;
-//         option.text = i;
-//         ageDropdown.appendChild(option);
-//     }
-// }
-
 // Function to Add Data to local storage
 function AddUser() {
     // If form is validated
@@ -326,9 +320,21 @@ function deleteUser(indexOnPage) {
         deleteAlert.style.display = "none";
     }, 3000);
 
-    // Show update users immediately
+    // Show update Users immediately
     showUsersOnPage(userList);
     updatePaginationInfo();
+
+    // Clear form fields
+    document.getElementById("firstName").value = "";
+    document.getElementById("lastName").value = "";
+    document.getElementById("dob").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("email").value = "";
+
+    // Update button will hide and Submit Button will show for updating of Data in local storage
+    document.getElementById('Update').style.display = "none";
+    document.getElementById('Submit').style.display = "block";
 
     document.getElementById("searchbar").value = "";
     SearchBar();
@@ -336,6 +342,11 @@ function deleteUser(indexOnPage) {
 
 // Function to Update Data from local storage
 function updateUser(indexOnPage) {
+    window.scrollTo({
+        top:0,
+        behavior: "smooth"
+    })
+
     // Submit button will hide and Update Button will show for updating of Data in local storage
     document.getElementById('Submit').style.display = "none";
     document.getElementById('Update').style.display = "block";
@@ -429,8 +440,13 @@ function updatePaginationInfo() {
     const paginationShowResult = document.getElementById("paginationShowResult");
     const totalPages = getTotalPages(userList);
 
+    // Calculate by showing the current show result by all users as per next page 
+    userPerPage = parseInt(document.getElementById("showEntries").value);
+    const startIndexShowResult = (currentUserPage - 1) * userPerPage + 1;
+    const endIndexShowResult = Math.min(startIndexShowResult + userPerPage - 1, totalUserResults);
+
     paginationInfo.textContent = `Page ${currentUserPage} of ${totalPages}`
-    paginationShowResult.textContent = `Showing ${totalUserResults} results`
+    paginationShowResult.textContent = `Showing ${endIndexShowResult} of ${totalUserResults} results`
 }
 
 // Function to display users on the current page
