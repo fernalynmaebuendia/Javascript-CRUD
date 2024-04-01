@@ -150,12 +150,12 @@ function showUser() {
 }
 
 // Close the modal when clicking outside the modal content
-window.addEventListener('click', function(event) {
-    const modal = document.getElementById('myModal');
-    if (event.target === modal) {
-        closeModal();
-    }
-});
+// window.addEventListener('click', function(event) {
+//     const modal = document.getElementById('myModal');
+//     if (event.target === modal) {
+//         closeModal();
+//     }
+// });
 
 // Close the modal when the Escape key is pressed
 window.addEventListener('keydown', function(event) {
